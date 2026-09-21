@@ -1,0 +1,109 @@
+{
+  "ctor": {
+    "params": [],
+    "kwparams": {}
+  },
+  "methods": {
+    "cancel": {
+      "params": [
+        [
+          "attestation_id",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "any",
+      "payable": false
+    },
+    "consume": {
+      "params": [
+        [
+          "attestation_id",
+          "string"
+        ],
+        [
+          "proposer",
+          "address"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "any",
+      "payable": false
+    },
+    "get_attestation": {
+      "params": [
+        [
+          "attestation_id",
+          "string"
+        ],
+        [
+          "proposer",
+          "address"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "dict"
+    },
+    "get_info": {
+      "params": [],
+      "kwparams": {},
+      "readonly": true,
+      "ret": "dict"
+    },
+    "propose": {
+      "params": [
+        [
+          "attestation_id",
+          "string"
+        ],
+        [
+          "consumer",
+          "address"
+        ],
+        [
+          "subject",
+          "string"
+        ],
+        [
+          "claim",
+          "string"
+        ],
+        [
+          "window_start",
+          "string"
+        ],
+        [
+          "window_end",
+          "string"
+        ],
+        [
+          "sources_json",
+          "string"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "any",
+      "payable": false
+    },
+    "review": {
+      "params": [
+        [
+          "attestation_id",
+          "string"
+        ],
+        [
+          "proposer",
+          "address"
+        ]
+      ],
+      "kwparams": {},
+      "readonly": false,
+      "ret": "any",
+      "payable": false
+    }
+  }
+}
