@@ -1,0 +1,1 @@
+Tidemark acceptance record TM-APPROVAL-002: service alpha was operational from 2026-09-01T00:00:00Z through 2026-09-30T00:00:00Z. This record directly supports the claim and contains no uncertainty or risk.
