@@ -100,3 +100,46 @@ def test_cancel_pending_and_reject_invalid_consume(direct_vm, direct_deploy, dir
     assert contract.get_attestation("TM-001", direct_alice)["status"] == "cancelled"
     with direct_vm.expect_revert():
         contract.cancel("TM-001")
+
+
+def test_duplicate_id_and_unauthorized_review_are_rejected(direct_vm, direct_deploy, direct_alice, direct_bob, direct_charlie):
+    contract = deploy(direct_deploy, direct_vm)
+    propose(contract, direct_vm, direct_alice, direct_bob)
+    direct_vm.sender = direct_alice
+    with direct_vm.expect_revert():
+        contract.propose("TM-001", direct_bob, "service-alpha", "duplicate", "2026-01-01", "2026-01-02", manifest())
+    direct_vm.sender = direct_charlie
+    with direct_vm.expect_revert():
+        contract.review("TM-001", direct_alice)
+
+
+def test_malformed_model_output_remains_retryable(direct_vm, direct_deploy, direct_alice, direct_bob):
+    contract = deploy(direct_deploy, direct_vm)
+    propose(contract, direct_vm, direct_alice, direct_bob)
+    for source in SOURCES:
+        direct_vm.mock_web(source["url"], {"status": 200, "body": source["body"]})
+    direct_vm.mock_llm("Service alpha", json.dumps({"window_match": "yes", "confidence": "not-a-number"}))
+    direct_vm.sender = direct_alice
+    contract.review("TM-001", direct_alice)
+    item = contract.get_attestation("TM-001", direct_alice)
+    assert item["status"] == "retryable" and item["rationale"] == "malformed_model_output"
+
+
+def test_http_failure_and_hash_mismatch_never_approve(direct_vm, direct_deploy, direct_alice, direct_bob):
+    contract = deploy(direct_deploy, direct_vm)
+    propose(contract, direct_vm, direct_alice, direct_bob)
+    direct_vm.mock_web(SOURCES[0]["url"], {"status": 500, "body": b""})
+    direct_vm.mock_web(SOURCES[1]["url"], {"status": 200, "body": SOURCES[1]["body"]})
+    direct_vm.mock_llm("Service alpha", json.dumps(SAFE))
+    direct_vm.sender = direct_alice
+    contract.review("TM-001", direct_alice)
+    assert contract.get_attestation("TM-001", direct_alice)["status"] == "retryable"
+
+
+def test_invalid_inputs_are_rejected(direct_vm, direct_deploy, direct_alice, direct_bob):
+    contract = deploy(direct_deploy, direct_vm)
+    direct_vm.sender = direct_alice
+    with direct_vm.expect_revert():
+        contract.propose("TM-BAD", direct_bob, "subject", "claim", "2026-01-02", "2026-01-01", manifest())
+    with direct_vm.expect_revert():
+        contract.propose("TM-BAD2", direct_bob, "subject", "claim", "2026-01-01", "2026-01-02", json.dumps([{"url": "https://127.0.0.1/x", "hash": digest(b"x")}, {"url": "https://beta.example/x", "hash": digest(b"y")}]))
