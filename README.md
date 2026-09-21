@@ -27,3 +27,10 @@ gate parses the source, executes all tests, runs GenVM lint, and generates the
 ABI schema. Tidemark is currently undeployed; deployment evidence will be
 added only after a frozen source passes the complete gate and Explorer source
 parity is verified.
+
+## Baseline validation
+
+The initial package passes 9 tests (4 helper tests and 5 official GenLayer
+Direct Mode contract tests), GenVM lint, ABI/schema generation, and the project
+preflight. The contract source SHA-256 is
+`bf371d658ced6c4baf7fb0a8ebc03d17fb668f9cfb5ad5d12a3d7a0863df91c5`.
