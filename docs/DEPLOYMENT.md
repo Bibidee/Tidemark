@@ -1,13 +1,24 @@
 # Deployment
 
-## Frozen source
+## v0.2.0 release candidate (not deployed)
+
+The current repository source is the v0.2.0 release candidate. It has not
+been deployed to Studionet. Before deployment, freeze the commit, record the
+raw source SHA-256, run the full release gate, deploy once, retrieve the
+deployed source with `gen_getContractCode`, and require byte-for-byte parity.
+The candidate adds strict historical-window checks, explicit publisher/source
+metadata, emitted lifecycle events, and expanded adversarial tests.
+
+No v0.2.0 address, transaction, or live evidence is claimed here.
+
+## Historical v0.1.0 source
 
 Tidemark v0.1.0 was frozen at commit
 `fbb2239d093c3777f068b79f07ea19800ee28eef`. The deployable source is
 15,603 bytes with SHA-256
 `bf371d658ced6c4baf7fb0a8ebc03d17fb668f9cfb5ad5d12a3d7a0863df91c5`.
 
-## Studionet deployment
+## Historical v0.1.0 Studionet deployment
 
 - Network: GenLayer Studio Network (Studionet)
 - Contract: [`0x2503a36B6d6AFFF9E018521cC598E048d4C9FF05`](https://explorer-studio.genlayer.com/address/0x2503a36B6d6AFFF9E018521cC598E048d4C9FF05)

@@ -58,7 +58,7 @@ def test_equivalence_ignores_rationale_but_not_material_disagreement():
 
 
 def test_source_manifest_is_canonical_and_hash_bound():
-    raw = json.dumps([{"url": "https://alpha.example/a", "hash": digest(b"a")}, {"url": "https://beta.example/b", "hash": digest(b"b")}])
+    raw = json.dumps([{"url": "https://alpha.example/a", "hash": digest(b"a"), "publisher": "alpha", "source_type": "archive"}, {"url": "https://beta.example/b", "hash": digest(b"b"), "publisher": "beta", "source_type": "archive"}])
     m = load_module()
     canonical = json.loads(m.parse_sources(raw))
     assert canonical[0]["hash"] == digest(b"a")
@@ -68,10 +68,31 @@ def test_source_manifest_is_canonical_and_hash_bound():
 def test_source_manifest_rejects_duplicate_hosts_and_private_targets():
     h = digest(b"a")
     try:
-        load_module().parse_sources(json.dumps([{"url": "https://alpha.example/a", "hash": h}, {"url": "https://alpha.example/b", "hash": h}]))
+        load_module().parse_sources(json.dumps([{"url": "https://alpha.example/a", "hash": h, "publisher": "alpha", "source_type": "archive"}, {"url": "https://alpha.example/b", "hash": digest(b"b"), "publisher": "beta", "source_type": "archive"}]))
         assert False
     except Exception:
         pass
+
+
+def test_private_and_ipv6_hosts_are_rejected():
+    m = load_module()
+    for value in ("https://10.0.0.1/a", "https://172.16.0.1/a", "https://192.168.1.1/a", "https://[::1]/a", "https://[fc00::1]/a", "https://[fe80::1]/a", "https://localhost/a"):
+        try:
+            m.valid_url(value)
+            assert False
+        except Exception:
+            pass
+
+
+def test_timestamp_and_provenance_helpers():
+    m = load_module()
+    assert m.canonical_timestamp("2026-02-28T00:00:00Z", "window")
+    for bad in ("0000-01-01T00:00:00Z", "2026-02-30T00:00:00Z", "2026-01-01", "2026-01-01T00:00:00+00:00"):
+        try:
+            m.canonical_timestamp(bad, "window")
+            assert False
+        except Exception:
+            pass
     try:
         load_module().valid_url("https://127.0.0.1/a")
         assert False

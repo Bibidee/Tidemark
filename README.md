@@ -1,4 +1,4 @@
-# Tidemark v0.1.0
+# Tidemark v0.2.0 release candidate
 
 Tidemark is a standalone GenLayer Intelligent Contract primitive for
 hash-bound, multi-source historical attestations. A proposer commits a subject,
@@ -21,12 +21,42 @@ source is HTTPS, host-distinct, size-bounded, SHA-256 verified, and decoded only
 after the raw-byte digest matches. Private, loopback, link-local, multicast,
 reserved, and obvious internal hosts are rejected at admission.
 
+Each source also commits an explicit `publisher` and `source_type`. Publisher
+identifiers are caller-claimed provenance labels: the contract requires
+distinct publishers, URLs, hosts, and hashes, but cannot prove that a label
+matches a real-world organization. Historical windows use strict UTC-second
+timestamps and end no later than deterministic transaction time.
+
 This repository intentionally contains exactly one deployable source under
 `contracts/`. Run `python scripts/preflight.py` before submission. The release
 gate parses the source, executes all tests, runs GenVM lint, and generates the
 ABI schema.
 
-## Frozen deployment evidence
+## Why GenLayer matters
+
+Without GenLayer, a single off-chain verifier or one LLM could selectively
+approve a convenient source, hide disagreement, or silently substitute a
+different document. Tidemark makes every validator independently fetch the
+exact hash-bound bytes, verify them before semantic interpretation, and derive
+the same bounded authorization outcome. Disagreement never becomes approval;
+only a complete, high-confidence approval tuple can authorize consumption.
+
+## Downstream integration
+
+Another Intelligent Contract can treat Tidemark as an authorization gate:
+call `get_attestation(id, proposer)`, require `status == "approved"`, then
+call `consume(id, proposer)` from the designated consumer before executing the
+protected action. Tidemark enforces the consumer check and one-time transition;
+downstream code must still validate its own action parameters and handle
+`blocked`, `retryable`, and `cancelled` states.
+
+## Release-candidate status
+
+The v0.1.0 Studionet deployment below is historical and superseded. The v0.2.0
+source in this repository is not deployed yet and requires a fresh deployment
+and source-parity proof.
+
+## Historical v0.1.0 deployment evidence
 
 The deployed source was frozen at commit
 `fbb2239d093c3777f068b79f07ea19800ee28eef` with raw SHA-256
@@ -79,7 +109,9 @@ risk `unclear`). It was not consumed.
 
 ## Baseline validation
 
-The final package passes 13 tests (4 helper tests and 9 official GenLayer
-Direct Mode contract tests), GenVM lint, ABI/schema generation, and the project
-preflight. The contract source SHA-256 remains
-`bf371d658ced6c4baf7fb0a8ebc03d17fb668f9cfb5ad5d12a3d7a0863df91c5`.
+The historical v0.1.0 package passed 13 tests (4 helper tests and 9 official
+GenLayer Direct Mode contract tests), GenVM lint, ABI/schema generation, and
+the project preflight. The v0.2.0 release candidate currently passes 21 tests
+(6 helper tests and 15 Direct Mode tests), GenVM lint, ABI/schema generation,
+and preflight. Its candidate source SHA-256 is
+`f876f46ba2e1243eaecdb3bfd9eacd7dfd55eac4832da3b96fddb29861937a6f`.

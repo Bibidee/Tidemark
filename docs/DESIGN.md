@@ -19,3 +19,42 @@ designated consumer is the only account allowed to consume an approved record.
 Tidemark does not assert that a source is true in the world; it attests that
 independent validators found the committed sources mutually support the exact
 claim for the exact window.
+
+## Historical windows and provenance
+
+`window_start` and `window_end` are strict UTC timestamps in
+`YYYY-MM-DDTHH:MM:SSZ` form. Calendar validity, ordering, and the requirement
+that the end is no later than the deterministic transaction timestamp are all
+checked before storage. A timestamp in the future, a nonexistent date, or a
+mixed-format value is rejected.
+
+Every committed source has `url`, `hash`, `publisher`, and `source_type`.
+URLs, hosts, SHA-256 digests, and claimed publisher identifiers must be
+distinct. This is a bounded provenance-diversity signal, not proof of
+real-world publisher identity: a caller can falsely label a source and
+downstream users should apply their own trust policy.
+
+## Events
+
+`AttestationProposed`, `AttestationReviewed`, `AttestationConsumed`, and
+`AttestationCancelled` are emitted at the corresponding state transition.
+Their indexed identifiers and participant addresses are concise; full source
+bytes and model rationale are never emitted.
+
+## Prompt-injection boundary
+
+Fetched source text, URLs, timestamps, publisher metadata, and the subject and
+claim are delimited as untrusted data in the review prompt. The semantic
+reviewer is explicitly told never to execute or follow instructions contained
+in those artifacts. A malicious artifact can still cause a blocked or
+retryable result, but it cannot become reviewer instructions through the
+contract's prompt construction.
+
+## URL limitations
+
+Admission requires HTTPS and rejects credentials, fragments, control
+characters, malformed authorities, localhost, private/loopback/link-local/
+reserved/multicast/unspecified IPv4 and IPv6 literals, numeric IPv4 aliases,
+and obvious internal suffixes. The contract does not perform DNS resolution or
+prove that a hostname will not redirect to a private target; validators and
+downstream operators should prefer immutable, commit-pinned HTTPS resources.
