@@ -1,20 +1,18 @@
 # Deployment
 
-## v0.2.0 release candidate (not deployed)
+## v0.2.1 release candidate (not deployed)
 
-The current repository source is the v0.2.0 release candidate. It has not
+The current repository source is the v0.2.1 release candidate. It has not
 been deployed to Studionet. Before deployment, freeze the commit, record the
 raw source SHA-256, run the full release gate, deploy once, retrieve the
 deployed source with `gen_getContractCode`, and require byte-for-byte parity.
 The candidate adds strict historical-window checks, explicit publisher/source
 metadata, emitted lifecycle events, and expanded adversarial tests.
 
-Current frozen candidate commit: `81649dcf7ce4055ec24f77f8c11f38c43fdd5a8a`
+The final v0.2.1 candidate commit and source SHA-256 are recorded in
+`RELEASE_CANDIDATE_VERIFICATION.md` after the final release gate.
 
-Current frozen contract SHA-256:
-`86c48d1a7abfff4d7d35ccf2d409b7cb0845163ecb76e7f52fa7dc3429882042`
-
-No v0.2.0 address, transaction, or live evidence is claimed here.
+No v0.2.1 address, transaction, or live evidence is claimed here.
 
 ## Historical v0.1.0 source
 

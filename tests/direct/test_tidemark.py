@@ -159,6 +159,17 @@ def test_payload_integrity_failures_never_approve(direct_vm, direct_deploy, dire
         assert contract.get_attestation(aid, direct_alice)["status"] != "approved"
 
 
+def test_redirect_response_fails_closed(direct_vm, direct_deploy, direct_alice, direct_bob):
+    contract = deploy(direct_deploy, direct_vm)
+    propose(contract, direct_vm, direct_alice, direct_bob, aid="TM-REDIRECT")
+    direct_vm.mock_web(SOURCES[0]["url"], {"response": {"status": 200, "headers": {"location": b"https://private.example"}, "body": SOURCES[0]["body"]}})
+    direct_vm.mock_web(SOURCES[1]["url"], {"status": 200, "body": SOURCES[1]["body"]})
+    direct_vm.mock_llm("Service alpha", json.dumps(SAFE))
+    direct_vm.sender = direct_alice
+    contract.review("TM-REDIRECT", direct_alice)
+    assert contract.get_attestation("TM-REDIRECT", direct_alice)["status"] != "approved"
+
+
 def test_invalid_inputs_are_rejected(direct_vm, direct_deploy, direct_alice, direct_bob):
     contract = deploy(direct_deploy, direct_vm)
     direct_vm.sender = direct_alice

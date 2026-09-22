@@ -1,4 +1,4 @@
-# v0.2.0
+# v0.2.1
 # { "Depends": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6" }
 """Tidemark: hash-bound, multi-source historical attestations.
 
@@ -326,6 +326,9 @@ def fetch_verified(source: dict) -> str:
         raise RuntimeError("fetch_unavailable")
     raw = response.body
     status = getattr(response, "status", getattr(response, "status_code", 0))
+    headers = getattr(response, "headers", {}) or {}
+    if any(str(name).lower() == "location" for name in headers):
+        raise ValueError("redirect_rejected")
     if status == 429 or status >= 500:
         raise RuntimeError("fetch_unavailable")
     if status < 200 or status >= 300 or not raw or len(raw) > MAX_SOURCE_BYTES:
@@ -448,4 +451,4 @@ class Tidemark(gl.Contract):
 
     @gl.public.view
     def get_info(self) -> dict:
-        return {"name": "Tidemark", "version": "0.2.0", "min_sources": str(MIN_SOURCES), "max_sources": str(MAX_SOURCES), "min_provenance": str(MIN_PROVENANCE), "min_confidence": str(MIN_CONFIDENCE), "max_source_bytes": str(MAX_SOURCE_BYTES)}
+        return {"name": "Tidemark", "version": "0.2.1", "min_sources": str(MIN_SOURCES), "max_sources": str(MAX_SOURCES), "min_provenance": str(MIN_PROVENANCE), "min_confidence": str(MIN_CONFIDENCE), "max_source_bytes": str(MAX_SOURCE_BYTES)}

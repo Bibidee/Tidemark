@@ -55,6 +55,8 @@ contract's prompt construction.
 Admission requires HTTPS and rejects credentials, fragments, control
 characters, malformed authorities, localhost, private/loopback/link-local/
 reserved/multicast/unspecified IPv4 and IPv6 literals, numeric IPv4 aliases,
-and obvious internal suffixes. The contract does not perform DNS resolution or
-prove that a hostname will not redirect to a private target; validators and
-downstream operators should prefer immutable, commit-pinned HTTPS resources.
+and obvious internal suffixes. A response carrying a `Location` header is
+rejected. The current GenLayer response type does not expose the final URL
+after a client-side redirect, so the contract cannot prove that a hostname
+will not resolve or redirect to a private target; validators and downstream
+operators should prefer immutable, commit-pinned HTTPS resources.

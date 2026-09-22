@@ -1,4 +1,4 @@
-# Tidemark v0.2.0 release candidate
+# Tidemark v0.2.1 release candidate
 
 Tidemark is a standalone GenLayer Intelligent Contract primitive for
 hash-bound, multi-source historical attestations. A proposer commits a subject,
@@ -32,6 +32,12 @@ This repository intentionally contains exactly one deployable source under
 gate parses the source, executes all tests, runs GenVM lint, and generates the
 ABI schema.
 
+Tidemark rejects explicit redirect responses (`Location` headers) and private
+or malformed host literals. GenLayer's current response API does not expose a
+post-redirect final URL or DNS resolution result, so network-layer policy and
+immutable, commit-pinned URLs remain necessary for complete redirect/SSRF
+protection.
+
 ## Why GenLayer matters
 
 Without GenLayer, a single off-chain verifier or one LLM could selectively
@@ -52,7 +58,7 @@ downstream code must still validate its own action parameters and handle
 
 ## Release-candidate status
 
-The v0.1.0 Studionet deployment below is historical and superseded. The v0.2.0
+The v0.1.0 Studionet deployment below is historical and superseded. The v0.2.1
 source in this repository is not deployed yet and requires a fresh deployment
 and source-parity proof.
 
@@ -111,7 +117,7 @@ risk `unclear`). It was not consumed.
 
 The historical v0.1.0 package passed 13 tests (4 helper tests and 9 official
 GenLayer Direct Mode contract tests), GenVM lint, ABI/schema generation, and
-the project preflight. The v0.2.0 release candidate currently passes 21 tests
-(6 helper tests and 15 Direct Mode tests), GenVM lint, ABI/schema generation,
-and preflight. Its candidate source SHA-256 is
-`86c48d1a7abfff4d7d35ccf2d409b7cb0845163ecb76e7f52fa7dc3429882042`.
+the project preflight. The v0.2.1 release candidate currently passes 22 tests
+(6 helper tests and 16 Direct Mode tests), GenVM lint, ABI/schema generation,
+and preflight. Its final candidate source SHA-256 and commit are recorded in
+`RELEASE_CANDIDATE_VERIFICATION.md`.

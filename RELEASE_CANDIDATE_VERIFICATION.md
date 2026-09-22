@@ -1,10 +1,9 @@
-# Tidemark v0.2.0 release-candidate verification
+# Tidemark v0.2.1 release-candidate verification
 
 Status: **not deployed**.
 
-Frozen candidate commit: `81649dcf7ce4055ec24f77f8c11f38c43fdd5a8a`
-
-Frozen contract SHA-256: `86c48d1a7abfff4d7d35ccf2d409b7cb0845163ecb76e7f52fa7dc3429882042`
+The final candidate commit and source SHA-256 are recorded below after the
+release gate completes.
 
 The candidate adds deterministic historical-window validation, explicit
 publisher/source metadata, prompt-injection boundaries, emitted lifecycle
