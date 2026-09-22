@@ -59,8 +59,9 @@ downstream code must still validate its own action parameters and handle
 ## Release-candidate status
 
 The v0.1.0 Studionet deployment below is historical and superseded. The v0.2.1
-source in this repository is not deployed yet and requires a fresh deployment
-and source-parity proof.
+source is frozen at commit `36dd2dcf2530317e0994d6e0d7505c1d33ee2309` with
+SHA-256 `3e79386adf1f21d94a1c590c8bb4796b9a1f4a125d6980cf167f4762664f34d7`.
+It is not deployed yet and requires a fresh deployment and source-parity proof.
 
 ## Historical v0.1.0 deployment evidence
 

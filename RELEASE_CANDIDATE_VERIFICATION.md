@@ -14,7 +14,7 @@ the source with `gen_getContractCode`, and require byte-for-byte parity.
 
 Acceptance checklist:
 
-- [ ] exactly one deployable source under `contracts/`
+- [x] exactly one deployable source under `contracts/`
 - [x] strict historical-window and provenance tests pass
 - [x] Direct Mode and helper tests pass with no skips (22 passed)
 - [x] GenVM lint and ABI/schema generation pass
@@ -22,4 +22,4 @@ Acceptance checklist:
 - [ ] deployment is FINALIZED / MAJORITY_AGREE / GenVM SUCCESS
 - [ ] retrieved deployed source matches exact local bytes
 - [ ] live pending -> approved or blocked -> consumed/cancelled evidence is recorded
-- [ ] README and `docs/DEPLOYMENT.md` contain only verified current evidence
+- [x] README and `docs/DEPLOYMENT.md` contain only verified current evidence

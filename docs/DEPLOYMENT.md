@@ -9,8 +9,9 @@ deployed source with `gen_getContractCode`, and require byte-for-byte parity.
 The candidate adds strict historical-window checks, explicit publisher/source
 metadata, emitted lifecycle events, and expanded adversarial tests.
 
-The final v0.2.1 candidate commit and source SHA-256 are recorded in
-`RELEASE_CANDIDATE_VERIFICATION.md` after the final release gate.
+The v0.2.1 contract freeze is commit
+`36dd2dcf2530317e0994d6e0d7505c1d33ee2309` with SHA-256
+`3e79386adf1f21d94a1c590c8bb4796b9a1f4a125d6980cf167f4762664f34d7`.
 
 No v0.2.1 address, transaction, or live evidence is claimed here.
 
@@ -62,7 +63,7 @@ Evidence:
 
 Claim `TM-LIVE-001` proposal [`0xa37088bdf1be803a4aceab0cdb4d47bcec51745e405df2ab7b1afecd24818d90`](https://explorer-studio.genlayer.com/tx/0xa37088bdf1be803a4aceab0cdb4d47bcec51745e405df2ab7b1afecd24818d90) finalized successfully. Review [`0xe7d0c86e006122c987ccdd5070b8ecf0d3ca1255317bc2427ef815975dad6066`](https://explorer-studio.genlayer.com/tx/0xe7d0c86e006122c987ccdd5070b8ecf0d3ca1255317bc2427ef815975dad6066) finalized `MAJORITY_AGREE` / GenVM `SUCCESS` as `blocked` with confidence `96` and `risk = unclear`. No consume was attempted.
 
-## Release gate
+## Historical v0.1.0 release gate
 
 - Direct Mode and helper tests: 13 passed, 0 skipped, 0 failed.
 - `python scripts/preflight.py`: PASS.
@@ -72,3 +73,9 @@ Claim `TM-LIVE-001` proposal [`0xa37088bdf1be803a4aceab0cdb4d47bcec51745e405df2a
 
 The source file remains unchanged after deployment; documentation and fixture
 commits do not alter deployed-source parity.
+
+## v0.2.1 candidate verification
+
+The current candidate has 22 tests (16 Direct Mode and 6 helper tests), with
+preflight, GenVM lint, and ABI/schema generation passing. The candidate source
+is not deployed and has no live v0.2.1 transaction evidence yet.
