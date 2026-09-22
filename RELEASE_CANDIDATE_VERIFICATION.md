@@ -1,6 +1,6 @@
 # Tidemark v0.2.1 release-candidate verification
 
-Status: **deployed; live semantic review remained retryable**.
+Status: **deployed; live semantic reviews remained fail-closed (retryable or blocked)**.
 
 Frozen candidate commit: `36dd2dcf2530317e0994d6e0d7505c1d33ee2309`
 
@@ -58,3 +58,21 @@ The blocked attestation was not consumed. No approved path or consume
 transaction exists yet; attempting consumption would be expected to revert.
 The deployed source remains unchanged and no redeployment was performed.
 - [x] README and `docs/DEPLOYMENT.md` contain only verified current evidence
+
+### Final controlled approval attempt (TM-LIVE-026)
+
+To test the approval path without changing the frozen source, a new historical
+fixture used two distinct HTTPS APIs and an explicit completed observation date:
+
+- claim ID: `TM-LIVE-026`
+- subject: `DATE-2020-01-01`
+- claim: `NASA APOD and OpenAlex independently publish records dated 2020-01-01.`
+- window: `2020-01-01T00:00:00Z` to `2020-01-02T00:00:00Z`
+- NASA source hash: `0x1f890ec393960b69123f07e9e503192f5d1d43939de438e3b966c4688b117807`
+- OpenAlex source hash: `0x6042b23caa6e52fe659fb165f9d9641012d5208dc1732019ba1793de4b9734e7`
+
+Proposal: [`0x26c374177fcb5187d3a24e5053034cdecb64d2c8d79488ace988ea73a512fd3e`](https://explorer-studio.genlayer.com/tx/0x26c374177fcb5187d3a24e5053034cdecb64d2c8d79488ace988ea73a512fd3e), finalized with `MAJORITY_AGREE` / GenVM `SUCCESS`; the canonical read confirmed `pending` and exact committed sources.
+
+Review: [`0x3945968b365ef19227c05c6ef378d2b5017acebb24ef1e66165a1a6faa4d861d`](https://explorer-studio.genlayer.com/tx/0x3945968b365ef19227c05c6ef378d2b5017acebb24ef1e66165a1a6faa4d861d), finalized with `MAJORITY_AGREE` / GenVM `SUCCESS`. The canonical result was `blocked`, confidence `0`, with rationale `Committed source verification failed.` The leader's bounded semantic output was `source_agreement=unclear`, `window_match=unclear`, `claim_supported=unclear`, `risk=yes`; this is a legitimate fail-closed result, not an approval.
+
+No consume transaction was submitted because the attestation was not approved. The deployment and contract source remain unchanged; the `approved -> consumed` live path is still unproven.
