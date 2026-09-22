@@ -1,8 +1,8 @@
 # Tidemark manual deployment
 
-This candidate is intentionally not deployed by this repository pass. A
-maintainer performs deployment only after the source is frozen and the release
-gate is green.
+The v0.2.1 candidate has been deployed and its source parity verified. The
+current Studionet deployment is recorded in `docs/DEPLOYMENT.md`; the commands
+below remain the procedure for a future release.
 
 Verify the exact candidate before deployment:
 
@@ -34,5 +34,4 @@ deployed hash must equal the frozen v0.2.1 hash above before recording the
 deployment as valid.
 
 Never put a private key, keystore password, or exported wallet in this
-repository. The historical v0.1.0 deployment remains labelled superseded
-until a new deployment is actually proven.
+repository. The historical v0.1.0 deployment remains labelled superseded.

@@ -93,6 +93,18 @@ The unlocked CLI account `fresh-alice`
 designated consumer. All writes used typed SDK string arguments and polling was
 throttled below the Studionet limit.
 
+### Current v0.2.1 approved -> consumed proof
+
+The immutable `TM-LIVE-027` fixture used RFC Editor and IANA sources for the
+same historical `TEST-NET-1` fact. Proposal
+[`0x03d8fe2ffa1da78274dc890f417ccebfe7b6783085f0300b1c75755a1f6aaf78`](https://explorer-studio.genlayer.com/tx/0x03d8fe2ffa1da78274dc890f417ccebfe7b6783085f0300b1c75755a1f6aaf78)
+finalized with exact committed sources and `pending`. Review
+[`0x8515037e142c2e2deeb50c878b1771f7f6d383077ecb96ee77b7f0823aac60db`](https://explorer-studio.genlayer.com/tx/0x8515037e142c2e2deeb50c878b1771f7f6d383077ecb96ee77b7f0823aac60db)
+finalized `MAJORITY_AGREE` / GenVM `SUCCESS` as `approved` with confidence 98.
+The designated consumer completed
+[`0xeb33e54cf69d341864607762343ae840797c1fac2d3a9f06e93afc8a25cbb7e0`](https://explorer-studio.genlayer.com/tx/0xeb33e54cf69d341864607762343ae840797c1fac2d3a9f06e93afc8a25cbb7e0),
+finalizing `consumed`.
+
 ### v0.2.1 live lifecycle attempt
 
 The proposer was `0x7C65cE913F5665c11f1219048112C84CD6cb2a4B` and the designated

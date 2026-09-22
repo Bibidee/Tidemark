@@ -1,6 +1,6 @@
 # Tidemark v0.2.1 release-candidate verification
 
-Status: **deployed; live semantic reviews remained fail-closed (retryable or blocked)**.
+Status: **deployed; complete approved -> consumed lifecycle verified**.
 
 Frozen candidate commit: `36dd2dcf2530317e0994d6e0d7505c1d33ee2309`
 
@@ -22,7 +22,7 @@ Acceptance checklist:
 - [x] deployment is FINALIZED / MAJORITY_AGREE / GenVM SUCCESS
 - [x] retrieved deployed source matches exact local bytes
 - [x] live proposal and pending read evidence is recorded
-- [x] live semantic review finalized fail-closed as retryable/malformed_model_output
+- [x] live semantic reviews include retryable and blocked fail-closed outcomes
 - [x] approved -> consumed lifecycle finalized for TM-LIVE-027
 
 ## v0.2.1 Live Deployment Verification
@@ -54,9 +54,8 @@ A fresh high-confidence historical fixture was then proposed as `TM-LIVE-024`:
 - rationale: the sources matched the claim and window, but validators identified
   the fixture as self-referential rather than independently corroborated.
 
-The blocked attestation was not consumed. No approved path or consume
-transaction exists yet; attempting consumption would be expected to revert.
-The deployed source remains unchanged and no redeployment was performed.
+The blocked attestation was not consumed. This remains preserved as historical
+fail-closed evidence; the complete approved path is recorded below.
 - [x] README and `docs/DEPLOYMENT.md` contain only verified current evidence
 
 ### Final controlled approval attempt (TM-LIVE-026)

@@ -45,6 +45,24 @@ The proposer was `0x7C65cE913F5665c11f1219048112C84CD6cb2a4B`; the designated
 consumer was `0x2cd419603eBa593074653930Ddc4073d4FD8fc60`. SDK writes used typed
 string arguments and receipt polling was throttled below 30 RPC calls/minute.
 
+### Current v0.2.1 immutable approved -> consumed path
+
+`TM-LIVE-027` used two independent stable sources: RFC Editor
+(`standards-document`, SHA-256
+`0x9d16217614a74a9b064eff900e5cd07a525793cf8227dca1267100e880f0c410`) and
+IANA (`registry`, SHA-256
+`0xe3e39e76d00b1677335db8e9a805c7b9480ea2f4dc9e33f0b93cd3a905128d73`).
+Proposal
+[`0x03d8fe2ffa1da78274dc890f417ccebfe7b6783085f0300b1c75755a1f6aaf78`](https://explorer-studio.genlayer.com/tx/0x03d8fe2ffa1da78274dc890f417ccebfe7b6783085f0300b1c75755a1f6aaf78)
+finalized `MAJORITY_AGREE` / GenVM `SUCCESS` with canonical `pending` state.
+Review
+[`0x8515037e142c2e2deeb50c878b1771f7f6d383077ecb96ee77b7f0823aac60db`](https://explorer-studio.genlayer.com/tx/0x8515037e142c2e2deeb50c878b1771f7f6d383077ecb96ee77b7f0823aac60db)
+finalized with `approved`, confidence 98. The designated consumer then
+completed
+[`0xeb33e54cf69d341864607762343ae840797c1fac2d3a9f06e93afc8a25cbb7e0`](https://explorer-studio.genlayer.com/tx/0xeb33e54cf69d341864607762343ae840797c1fac2d3a9f06e93afc8a25cbb7e0),
+finalized `MAJORITY_AGREE` / GenVM `SUCCESS`, leaving canonical status
+`consumed`.
+
 ### Approved -> consumed
 
 Claim `TM-APPROVAL-002` used two commit-pinned, distinct-host sources:
