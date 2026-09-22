@@ -56,12 +56,19 @@ protected action. Tidemark enforces the consumer check and one-time transition;
 downstream code must still validate its own action parameters and handle
 `blocked`, `retryable`, and `cancelled` states.
 
-## Release-candidate status
+## v0.2.1 deployment status
 
-The v0.1.0 Studionet deployment below is historical and superseded. The v0.2.1
-source is frozen at commit `36dd2dcf2530317e0994d6e0d7505c1d33ee2309` with
-SHA-256 `3e79386adf1f21d94a1c590c8bb4796b9a1f4a125d6980cf167f4762664f34d7`.
-It is not deployed yet and requires a fresh deployment and source-parity proof.
+The v0.2.1 source is frozen at commit `36dd2dcf2530317e0994d6e0d7505c1d33ee2309`
+with SHA-256 `3e79386adf1f21d94a1c590c8bb4796b9a1f4a125d6980cf167f4762664f34d7`.
+It is deployed on Studionet at
+[`0xDD75312f65f11d3C7d848e74B6C4a2AFA0f1D4dA`](https://explorer-studio.genlayer.com/address/0xDD75312f65f11d3C7d848e74B6C4a2AFA0f1D4dA)
+from deployment transaction
+[`0xb6374d201fd64c23ce9e2f6a3a32e80d6f8aefcb6233b7a25ce68d5393a38001`](https://explorer-studio.genlayer.com/tx/0xb6374d201fd64c23ce9e2f6a3a32e80d6f8aefcb6233b7a25ce68d5393a38001).
+The deployment is `FINALIZED` / `MAJORITY_AGREE` / GenVM `SUCCESS`. The source
+returned by `gen_getContractCode` is 19,364 bytes and matches the local source
+byte-for-byte (SHA-256 above). `get_info()` returns version `0.2.1`, with
+`min_sources=2`, `max_sources=4`, `min_provenance=2`, `min_confidence=75`, and
+`max_source_bytes=16000`.
 
 ## Historical v0.1.0 deployment evidence
 
@@ -86,7 +93,28 @@ The unlocked CLI account `fresh-alice`
 designated consumer. All writes used typed SDK string arguments and polling was
 throttled below the Studionet limit.
 
-### Approved and consumed path
+### v0.2.1 live lifecycle attempt
+
+The proposer was `0x7C65cE913F5665c11f1219048112C84CD6cb2a4B` and the designated
+consumer was `0x2cd419603eBa593074653930Ddc4073d4FD8fc60`. A first proposal
+(`TM-LIVE-021`) correctly reverted because its window end was in the future.
+The corrected proposal `TM-LIVE-023` used the two immutable sources below and
+finalized successfully:
+
+- [`approval-a.txt`](https://cdn.jsdelivr.net/gh/Bibidee/Tidemark@e02648d677faa093ecd31a647470e6f75af5ad21/fixtures/live/approval-a.txt) — `0x9bff5fbab8263941b8a7b770eaf4f9310b247bc6b09ffecd752a18c4812f8956`
+- [`approval-b.txt`](https://raw.githubusercontent.com/Bibidee/Tidemark/e02648d677faa093ecd31a647470e6f75af5ad21/fixtures/live/approval-b.txt) — `0xe0f3e6cc9a8423006d5a900ab75c2f75233f9d853f8caad585569952bf996171`
+
+Proposal [`0x88121ef12eab90a1e156fed985ddd1aa5609e5430c0d05041dde3126bf58006b`](https://explorer-studio.genlayer.com/tx/0x88121ef12eab90a1e156fed985ddd1aa5609e5430c0d05041dde3126bf58006b)
+was `FINALIZED` / `MAJORITY_AGREE` / `SUCCESS`; the canonical read confirmed
+`pending` and exact hashes/URLs. Review
+[`0x294ff43bfbcd8a3910ca24966d0616d5533fd41248f38ff1998cd9cf8f32d265`](https://explorer-studio.genlayer.com/tx/0x294ff43bfbcd8a3910ca24966d0616d5533fd41248f38ff1998cd9cf8f32d265)
+was also `FINALIZED` / `MAJORITY_AGREE` / `SUCCESS`, but the live provider
+returned the contract's fail-closed `retryable / malformed_model_output`
+outcome (confidence `0`, rationale `malformed_model_output`). No consume was
+attempted because the attestation never became approved. This is genuine live
+evidence of safe non-authorization, not an approval claim.
+
+### Historical approved and consumed path
 
 Claim `TM-APPROVAL-002` committed two UTF-8 sources on distinct hosts:
 

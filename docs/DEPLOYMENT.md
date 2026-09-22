@@ -1,19 +1,20 @@
 # Deployment
 
-## v0.2.1 release candidate (not deployed)
+## v0.2.1 Studionet deployment
 
-The current repository source is the v0.2.1 release candidate. It has not
-been deployed to Studionet. Before deployment, freeze the commit, record the
-raw source SHA-256, run the full release gate, deploy once, retrieve the
-deployed source with `gen_getContractCode`, and require byte-for-byte parity.
-The candidate adds strict historical-window checks, explicit publisher/source
-metadata, emitted lifecycle events, and expanded adversarial tests.
+The current repository source is the v0.2.1 frozen source. It is deployed on
+Studionet at [`0xDD75312f65f11d3C7d848e74B6C4a2AFA0f1D4dA`](https://explorer-studio.genlayer.com/address/0xDD75312f65f11d3C7d848e74B6C4a2AFA0f1D4dA)
+from [`0xb6374d201fd64c23ce9e2f6a3a32e80d6f8aefcb6233b7a25ce68d5393a38001`](https://explorer-studio.genlayer.com/tx/0xb6374d201fd64c23ce9e2f6a3a32e80d6f8aefcb6233b7a25ce68d5393a38001).
+The deployment is FINALIZED / MAJORITY_AGREE / GenVM SUCCESS. `gen_getContractCode`
+returned 19,364 bytes whose SHA-256 is
+`3e79386adf1f21d94a1c590c8bb4796b9a1f4a125d6980cf167f4762664f34d7`, matching
+the local frozen source byte-for-byte.
 
 The v0.2.1 contract freeze is commit
 `36dd2dcf2530317e0994d6e0d7505c1d33ee2309` with SHA-256
 `3e79386adf1f21d94a1c590c8bb4796b9a1f4a125d6980cf167f4762664f34d7`.
 
-No v0.2.1 address, transaction, or live evidence is claimed here.
+`get_info()` returns `{"name":"Tidemark","version":"0.2.1","min_sources":"2","max_sources":"4","min_provenance":"2","min_confidence":"75","max_source_bytes":"16000"}`.
 
 ## Historical v0.1.0 source
 
@@ -74,8 +75,15 @@ Claim `TM-LIVE-001` proposal [`0xa37088bdf1be803a4aceab0cdb4d47bcec51745e405df2a
 The source file remains unchanged after deployment; documentation and fixture
 commits do not alter deployed-source parity.
 
-## v0.2.1 candidate verification
+## v0.2.1 release gate and live evidence
 
-The current candidate has 22 tests (16 Direct Mode and 6 helper tests), with
-preflight, GenVM lint, and ABI/schema generation passing. The candidate source
-is not deployed and has no live v0.2.1 transaction evidence yet.
+The frozen source has 22 tests (16 Direct Mode and 6 helper tests), with
+preflight, GenVM lint, and ABI/schema generation passing. Proposal
+`TM-LIVE-023` finalized in [`0x88121ef12eab90a1e156fed985ddd1aa5609e5430c0d05041dde3126bf58006b`](https://explorer-studio.genlayer.com/tx/0x88121ef12eab90a1e156fed985ddd1aa5609e5430c0d05041dde3126bf58006b)
+and canonical state was `pending`. Review
+`0x294ff43bfbcd8a3910ca24966d0616d5533fd41248f38ff1998cd9cf8f32d265` finalized
+with `MAJORITY_AGREE` / GenVM `SUCCESS`, but the semantic result was the
+fail-closed `retryable / malformed_model_output`. No consumption transaction
+exists because the claim was not approved. The earlier `TM-LIVE-021` proposal
+was intentionally rejected for a future window, demonstrating deterministic
+timestamp validation.

@@ -1,6 +1,6 @@
 # Tidemark v0.2.1 release-candidate verification
 
-Status: **not deployed**.
+Status: **deployed; live semantic review remained retryable**.
 
 Frozen candidate commit: `36dd2dcf2530317e0994d6e0d7505c1d33ee2309`
 
@@ -19,7 +19,9 @@ Acceptance checklist:
 - [x] Direct Mode and helper tests pass with no skips (22 passed)
 - [x] GenVM lint and ABI/schema generation pass
 - [x] redirect-header rejection and event-payload identity tests pass
-- [ ] deployment is FINALIZED / MAJORITY_AGREE / GenVM SUCCESS
-- [ ] retrieved deployed source matches exact local bytes
-- [ ] live pending -> approved or blocked -> consumed/cancelled evidence is recorded
+- [x] deployment is FINALIZED / MAJORITY_AGREE / GenVM SUCCESS
+- [x] retrieved deployed source matches exact local bytes
+- [x] live proposal and pending read evidence is recorded
+- [x] live semantic review finalized fail-closed as retryable/malformed_model_output
+- [ ] approved -> consumed lifecycle (not possible without a live approved verdict)
 - [x] README and `docs/DEPLOYMENT.md` contain only verified current evidence
