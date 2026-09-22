@@ -387,7 +387,9 @@ class Tidemark(gl.Contract):
         if key in self.attestations:
             raise gl.vm.UserError("[EXPECTED] Duplicate attestation")
         self.attestations[key] = Attestation(attestation_id, gl.message.sender_address, consumer, subject, claim, window_start, window_end, sources_json, PENDING, u256(0), "")
-        AttestationProposed(attestation_id, gl.message.sender_address, consumer).emit()
+        # GenLayer sorts indexed event fields lexicographically; pass consumer
+        # before proposer to preserve the declared payload identities.
+        AttestationProposed(attestation_id, consumer, gl.message.sender_address).emit()
 
     @gl.public.write
     def review(self, attestation_id: str, proposer: Address):
@@ -427,7 +429,7 @@ class Tidemark(gl.Contract):
         if gl.message.sender_address != item.consumer:
             raise gl.vm.UserError("[EXPECTED] Consumer only")
         item.status = CONSUMED
-        AttestationConsumed(item.id, item.proposer, item.consumer).emit()
+        AttestationConsumed(item.id, item.consumer, item.proposer).emit()
 
     @gl.public.write
     def cancel(self, attestation_id: str):

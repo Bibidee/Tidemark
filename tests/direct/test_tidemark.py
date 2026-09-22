@@ -202,12 +202,30 @@ def test_prompt_injection_is_untrusted_data(direct_vm, direct_deploy, direct_ali
 
 
 def test_lifecycle_events_are_emitted(direct_vm, direct_deploy, direct_alice, direct_bob):
+    events = []
+    def hook(_vm, request):
+        if "EmitEvent" in request:
+            events.append(request["EmitEvent"])
+            return {"ok": None}
+        return None
+    direct_vm._gl_call_hook = hook
     contract = deploy(direct_deploy, direct_vm)
     propose(contract, direct_vm, direct_alice, direct_bob, aid="TM-EVENT")
-    assert any("EmitEvent" in trace for trace in direct_vm._traces)
+    assert events
+    proposed = events[-1]["blob"]
+    assert proposed["attestation_id"] == "TM-EVENT"
+    stored = contract.get_attestation("TM-EVENT", direct_alice)
+    assert proposed["proposer"].as_hex.lower() == stored["proposer"].lower()
+    assert proposed["consumer"].as_hex.lower() == stored["consumer"].lower()
     configure(direct_vm)
     direct_vm.sender = direct_alice
     contract.review("TM-EVENT", direct_alice)
+    assert events[-1]["blob"]["status"] == "approved"
     direct_vm.sender = direct_bob
     contract.consume("TM-EVENT", direct_alice)
+    assert events[-1]["blob"]["consumer"].as_hex.lower() == "0x" + direct_bob.hex()
     assert contract.get_attestation("TM-EVENT", direct_alice)["status"] == "consumed"
+    propose(contract, direct_vm, direct_alice, direct_bob, aid="TM-CANCEL")
+    direct_vm.sender = direct_alice
+    contract.cancel("TM-CANCEL")
+    assert events[-1]["blob"]["attestation_id"] == "TM-CANCEL"
