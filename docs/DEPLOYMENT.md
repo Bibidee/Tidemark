@@ -9,10 +9,10 @@ deployed source with `gen_getContractCode`, and require byte-for-byte parity.
 The candidate adds strict historical-window checks, explicit publisher/source
 metadata, emitted lifecycle events, and expanded adversarial tests.
 
-Current frozen candidate commit: `8b72b72852d555a1446f21bcd6be7cdeeefc9c9b`
+Current frozen candidate commit: `81649dcf7ce4055ec24f77f8c11f38c43fdd5a8a`
 
 Current frozen contract SHA-256:
-`f876f46ba2e1243eaecdb3bfd9eacd7dfd55eac4832da3b96fddb29861937a6f`
+`86c48d1a7abfff4d7d35ccf2d409b7cb0845163ecb76e7f52fa7dc3429882042`
 
 No v0.2.0 address, transaction, or live evidence is claimed here.
 

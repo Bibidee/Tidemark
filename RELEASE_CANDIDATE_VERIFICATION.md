@@ -2,9 +2,9 @@
 
 Status: **not deployed**.
 
-Frozen candidate commit: `8b72b72852d555a1446f21bcd6be7cdeeefc9c9b`
+Frozen candidate commit: `81649dcf7ce4055ec24f77f8c11f38c43fdd5a8a`
 
-Frozen contract SHA-256: `f876f46ba2e1243eaecdb3bfd9eacd7dfd55eac4832da3b96fddb29861937a6f`
+Frozen contract SHA-256: `86c48d1a7abfff4d7d35ccf2d409b7cb0845163ecb76e7f52fa7dc3429882042`
 
 The candidate adds deterministic historical-window validation, explicit
 publisher/source metadata, prompt-injection boundaries, emitted lifecycle

@@ -114,4 +114,4 @@ GenLayer Direct Mode contract tests), GenVM lint, ABI/schema generation, and
 the project preflight. The v0.2.0 release candidate currently passes 21 tests
 (6 helper tests and 15 Direct Mode tests), GenVM lint, ABI/schema generation,
 and preflight. Its candidate source SHA-256 is
-`f876f46ba2e1243eaecdb3bfd9eacd7dfd55eac4832da3b96fddb29861937a6f`.
+`86c48d1a7abfff4d7d35ccf2d409b7cb0845163ecb76e7f52fa7dc3429882042`.
